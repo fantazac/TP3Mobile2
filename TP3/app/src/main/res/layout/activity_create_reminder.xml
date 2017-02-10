@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.csf.mobile2.tp3.MainActivity">
+
+
+    <TextView
+        android:text="Nouveau rappel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newReminderTextView"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:text="Créer rappel"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/createReminderButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:text="Vendredi, 10 février 2017"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newDateTextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/newReminderTextView"
+        app:layout_constraintRight_toRightOf="@+id/newReminderTextView"
+        app:layout_constraintLeft_toLeftOf="@+id/newReminderTextView" />
+
+    <TextView
+        android:text="Description :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionTextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/newDateTextView" />
+
+    <TextView
+        android:text="Importance :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/importanceTextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
+        app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView" />
+
+    <EditText
+        android:layout_width="254dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Ce rappel ne sert à rien"
+        android:ems="10"
+        android:id="@+id/descriptionEditText"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/descriptionTextView"
+        app:layout_constraintTop_toTopOf="@+id/descriptionTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionTextView" />
+
+    <TimePicker
+        android:layout_width="352dp"
+        android:layout_height="250dp"
+        android:id="@+id/timePicker"
+        app:layout_constraintBottom_toTopOf="@+id/createReminderButton"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/notImportantButton"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:text="Not important"
+        android:textSize="8sp"
+        android:id="@+id/notImportantButton"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/importanceTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:backgroundTint="@color/green"/>
+
+    <Button
+        android:text="Important"
+        android:textSize="8sp"
+        android:id="@+id/importantButton"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        app:layout_constraintLeft_toRightOf="@+id/notImportantButton"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:backgroundTint="@color/yellow"/>
+
+    <Button
+        android:text="Very important"
+        android:textSize="8sp"
+        android:id="@+id/veryImportantButton"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        app:layout_constraintLeft_toRightOf="@+id/importantButton"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
+        android:backgroundTint="@color/red"/>
+
+
+</android.support.constraint.ConstraintLayout>
