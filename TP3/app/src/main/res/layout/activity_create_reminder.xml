@@ -82,5 +82,61 @@
         app:layout_constraintTop_toTopOf="@+id/descriptionTextView"
         app:layout_constraintBottom_toBottomOf="@+id/descriptionTextView" />
 
+    <ScrollView
+        android:layout_width="368dp"
+        app:layout_constraintBottom_toTopOf="@+id/createReminderButton"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/scrollView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/notImportantButton"
+        android:layout_height="252dp"
+        android:layout_marginBottom="8dp">
+
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timePicker" />
+    </ScrollView>
+
+    <Button
+        android:text="Not important"
+        android:textSize="8sp"
+        android:id="@+id/notImportantButton"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/importanceTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/green"/>
+
+    <Button
+        android:text="Important"
+        android:textSize="8sp"
+        android:id="@+id/importantButton"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/notImportantButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/yellow"/>
+
+    <Button
+        android:text="Very important"
+        android:textSize="8sp"
+        android:id="@+id/veryImportantButton"
+        app:layout_constraintBottom_toBottomOf="@+id/importanceTextView"
+        app:layout_constraintTop_toTopOf="@+id/importanceTextView"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/importantButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/red"/>
+
 
 </android.support.constraint.ConstraintLayout>
