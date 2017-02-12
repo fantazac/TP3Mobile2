@@ -5,4 +5,6 @@
     <string name="very_important">Very important</string>
     <string name="description_hint">Écrire ici</string>
     <string name="addReminder">Ajouter</string>
+    <string name="description">Description :</string>
+    <string name="create_reminder">Créer rappel</string>
 </resources>
