@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mailles Reminder</string>
+    <string name="not_important">Not important</string>
+    <string name="important">Important</string>
+    <string name="very_important">Very important</string>
+    <string name="description_hint">Écrire ici</string>
 </resources>
