@@ -24,7 +24,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:text="Ajouter"
+        android:text="@string/addReminder"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:id="@+id/addReminderButton"

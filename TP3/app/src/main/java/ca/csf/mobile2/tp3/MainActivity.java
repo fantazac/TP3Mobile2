@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onImportanceButtonClicked(View view) {
         int buttonId = view.getId();
-
+        System.out.println(notImportantButton.isSelected());
         notImportantButton.setSelected(false);
         importantButton.setSelected(false);
         veryImportantButton.setSelected(false);

@@ -95,10 +95,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/importantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
         app:layout_constraintTop_toBottomOf="@+id/descriptionEditText"
         android:layout_width="112dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/button_selected_not_important"
         android:onClick="onImportanceButtonClicked" />
 
     <Button
@@ -110,7 +110,7 @@
         app:layout_constraintLeft_toRightOf="@+id/notImportantButton"
         app:layout_constraintRight_toLeftOf="@+id/veryImportantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
+        android:background="@drawable/button_selected_important"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"/>
 
@@ -122,7 +122,7 @@
         app:layout_constraintTop_toTopOf="@+id/notImportantButton"
         app:layout_constraintLeft_toRightOf="@+id/importantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
+        android:background="@drawable/button_selected_very_important"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"/>
