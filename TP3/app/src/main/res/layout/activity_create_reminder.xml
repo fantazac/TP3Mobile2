@@ -128,5 +128,16 @@
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"/>
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_delete"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/newReminderTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/newReminderTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="newReminderBack"/>
+
 
 </android.support.constraint.ConstraintLayout>

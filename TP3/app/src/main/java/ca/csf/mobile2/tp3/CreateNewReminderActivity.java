@@ -60,4 +60,10 @@ public class CreateNewReminderActivity extends AppCompatActivity {
         startActivity(returnToDaySelected);
         finish();
     }
+
+    public void newReminderBack(View view) {
+        Intent returnToDaySelected = new Intent(getApplicationContext(), DayRemindersActivity_.class);
+        startActivity(returnToDaySelected);
+        finish();
+    }
 }

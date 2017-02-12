@@ -22,4 +22,10 @@ public class DayRemindersActivity extends AppCompatActivity {
         startActivity(createNewReminder);
         finish();
     }
+
+    public void daySelectedBack(View view) {
+        Intent main = new Intent(getApplicationContext(), MainActivity_.class);
+        startActivity(main);
+        finish();
+    }
 }
