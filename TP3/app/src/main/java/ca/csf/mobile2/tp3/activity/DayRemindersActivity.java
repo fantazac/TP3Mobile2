@@ -1,4 +1,4 @@
-package ca.csf.mobile2.tp3;
+package ca.csf.mobile2.tp3.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ca.csf.mobile2.tp3.R;
 
 @EActivity(R.layout.activity_day_selected)
 public class DayRemindersActivity extends AppCompatActivity {

@@ -1,6 +1,5 @@
-package ca.csf.mobile2.tp3;
+package ca.csf.mobile2.tp3.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +10,8 @@ import android.widget.TimePicker;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import ca.csf.mobile2.tp3.R;
 
 @EActivity(R.layout.activity_create_reminder)
 public class CreateNewReminderActivity extends AppCompatActivity {

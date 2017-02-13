@@ -1,14 +1,16 @@
-package ca.csf.mobile2.tp3;
+package ca.csf.mobile2.tp3.activity;
 
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CalendarView;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import ca.csf.mobile2.tp3.R;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
@@ -39,5 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Intent dayReminders = new Intent(getApplicationContext(), DayRemindersActivity_.class);
         dayReminders.putExtra(SELECTED_DATE_UTC, utcTimeOfSelectedDate);
         startActivity(dayReminders);
+    }
+
+    public void onClickShowReminderList(View view) {
+        Intent reminderList = new Intent(getApplicationContext(), ReminderListActivity_.class);
+        startActivity(reminderList);
     }
 }

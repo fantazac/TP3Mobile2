@@ -7,4 +7,7 @@
     <string name="addReminder">Ajouter</string>
     <string name="description">Description :</string>
     <string name="create_reminder">Créer rappel</string>
+    <string name="liste_de_rappels">Liste de rappels</string>
+    <string name="sort_time">Temps</string>
+    <string name="sort_importance">Importance</string>
 </resources>

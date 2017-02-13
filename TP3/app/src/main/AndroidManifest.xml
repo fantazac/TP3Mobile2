@@ -8,15 +8,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity_" >
+        <activity android:name=".activity.MainActivity_" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateNewReminderActivity_" />
-        <activity android:name=".DayRemindersActivity_" />
+        <activity android:name=".activity.CreateNewReminderActivity_" />
+        <activity android:name=".activity.DayRemindersActivity_" />
+        <activity android:name=".activity.ReminderListActivity_" />
     </application>
 
 </manifest>
