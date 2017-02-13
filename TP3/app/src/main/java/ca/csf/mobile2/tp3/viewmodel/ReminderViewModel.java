@@ -5,6 +5,8 @@ import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import ca.csf.mobile2.tp3.BR;
 import ca.csf.mobile2.tp3.model.Reminder;
 
@@ -17,33 +19,11 @@ public class ReminderViewModel extends BaseObservable implements Reminder.Remind
     }
 
     @Bindable
-    public int getYear() {
-        return reminder.getYear();
-    }
-
-    @Bindable
-    public int getMonth() {
-        return reminder.getMonth();
-    }
-
-    @Bindable
-    public int getDate() {
-        return reminder.getDate();
-    }
-
-    @Bindable
-    public int getImportance() {
-        return reminder.getImportance();
-    }
+    public long getUtcTime() {return reminder.getUtcTime();}
 
     @Bindable
     public String getDescription() {
         return reminder.getDescription();
-    }
-
-    @BindingAdapter("date")
-    public static void setDateOnView(TextView textView, String date) {
-        textView.setText(date);
     }
 
     @Override
