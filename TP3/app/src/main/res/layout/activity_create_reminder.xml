@@ -24,7 +24,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:text="Créer rappel"
+        android:text="@string/create_reminder"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:id="@+id/createReminderButton"
@@ -33,7 +33,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="returnToDaySelected"/>
 
     <TextView
         android:text="Vendredi, 10 février 2017"
@@ -48,7 +49,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/newReminderTextView" />
 
     <TextView
-        android:text="Description :"
+        android:text="@string/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/descriptionTextView"
@@ -95,10 +96,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/importantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
         app:layout_constraintTop_toBottomOf="@+id/descriptionEditText"
         android:layout_width="112dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/button_selected_not_important"
         android:onClick="onImportanceButtonClicked" />
 
     <Button
@@ -110,7 +111,7 @@
         app:layout_constraintLeft_toRightOf="@+id/notImportantButton"
         app:layout_constraintRight_toLeftOf="@+id/veryImportantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
+        android:background="@drawable/button_selected_important"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"/>
 
@@ -122,10 +123,21 @@
         app:layout_constraintTop_toTopOf="@+id/notImportantButton"
         app:layout_constraintLeft_toRightOf="@+id/importantButton"
         android:layout_height="48dp"
-        android:backgroundTint="@color/gray"
+        android:background="@drawable/button_selected_very_important"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_delete"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/newReminderTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/newReminderTextView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="newReminderBack"/>
 
 
 </android.support.constraint.ConstraintLayout>
