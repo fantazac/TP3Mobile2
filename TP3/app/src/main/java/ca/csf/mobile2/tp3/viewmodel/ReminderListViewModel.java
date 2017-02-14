@@ -2,6 +2,8 @@ package ca.csf.mobile2.tp3.viewmodel;
 
 import android.os.Handler;
 
+import ca.acodebreak.android.databind.list.DatabindableViewModel;
+import ca.acodebreak.android.databind.list.DatabindableViewModelList;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
