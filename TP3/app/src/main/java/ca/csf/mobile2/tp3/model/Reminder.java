@@ -3,11 +3,10 @@ package ca.csf.mobile2.tp3.model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reminder
-{
+public class Reminder {
 
-    private long id;
-    private long utcTime;
+    private int id;
+    private final long utcTime;
     //TODO: mettre en enum
     // 0 = peu important, 1 = important, 2 = très important
     private final int importance;
@@ -15,7 +14,7 @@ public class Reminder
 
     private List<ReminderChangedListener> reminderChangedListeners;
 
-    public Reminder(long id, long utcTime, int importance, String description) {
+    public Reminder(int id, String description, int importance, long utcTime) {
         this.id = id;
         this.utcTime = utcTime;
         this.importance = importance;
@@ -28,7 +27,7 @@ public class Reminder
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

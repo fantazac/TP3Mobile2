@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ReminderDatabaseTableHelper extends SQLiteOpenHelper
 {
-    public static final int VERSION = 1;
+    private static final int VERSION = 1;
 
     public ReminderDatabaseTableHelper(Context context, String name) {
         super(context, name, null, VERSION);

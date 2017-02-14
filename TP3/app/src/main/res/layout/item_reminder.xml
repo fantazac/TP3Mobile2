@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="description"
-            type="ca.csf.mobile2.tp3.model.Reminder"/>
+            name="reminder"
+            type="ca.csf.mobile2.tp3.viewmodel.ReminderViewModel"/>
 
     </data>
 
@@ -30,7 +30,7 @@
             android:layout_marginEnd="14dp" />
 
         <TextView
-            android:text="datePlaceHolder"
+            android:text="@{reminder.date}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
@@ -39,7 +39,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:text="descriptionPlaceHolder"
+            android:text="@{reminder.description}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/descriptionTextView"

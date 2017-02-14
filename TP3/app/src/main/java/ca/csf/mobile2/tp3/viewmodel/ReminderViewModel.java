@@ -5,6 +5,9 @@ import android.os.Handler;
 
 import com.android.databinding.library.baseAdapters.BR;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ca.acodebreak.android.databind.list.DatabindableViewModel;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
@@ -21,8 +24,10 @@ public class ReminderViewModel extends DatabindableViewModel<Reminder> {
     }
 
     @Bindable
-    public long getUtcTime() {
-        return reminder.getUtcTime();
+    public String getDate() {
+        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/yy");
+        System.out.println(dateFormat.format(new Date(reminder.getUtcTime())));
+        return dateFormat.format(new Date(reminder.getUtcTime()));
     }
 
     @Bindable

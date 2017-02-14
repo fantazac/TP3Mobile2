@@ -15,6 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ca.csf.mobile2.tp3.R;
+import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
+import ca.csf.mobile2.tp3.database.ReminderRepository;
+import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
+import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
+import ca.csf.mobile2.tp3.model.ReminderList;
 
 @EActivity(R.layout.activity_day_selected)
 public class DayRemindersActivity extends AppCompatActivity {
@@ -22,11 +27,23 @@ public class DayRemindersActivity extends AppCompatActivity {
     protected TextView dateTextView;
     protected Date selectedDate;
 
+    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
+    private ReminderRepository reminderRepository;
+    private ReminderList reminderList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
+        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
+        reminderList = reminderRepository.retrieveAll();
     }
 
     protected void injectViews(@ViewById(R.id.dateTextView) TextView dateTextView){
