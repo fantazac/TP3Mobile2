@@ -26,7 +26,6 @@ public class ReminderSQLRepository implements ReminderRepository
 
             cursor.moveToLast();
 
-            //On va chercher le id
             cursor.close();
 
             cursor = database.rawQuery("SELECT last_insert_rowid()",new String[]{});
