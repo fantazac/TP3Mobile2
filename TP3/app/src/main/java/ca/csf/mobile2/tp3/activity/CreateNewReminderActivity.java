@@ -1,5 +1,6 @@
 package ca.csf.mobile2.tp3.activity;
 
+import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +12,8 @@ import android.widget.TimePicker;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Date;
 
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
@@ -107,7 +110,11 @@ public class CreateNewReminderActivity extends AppCompatActivity {
     }
 
     public void returnToDaySelected(View view) {
-        reminderList.add(new Reminder(0, descriptionEditText.getText().toString(), getSelectedImportance(), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1)));
+        Calendar calender = Calendar.getInstance();
+        calender.setTime(new Date(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1)));
+        calender.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
+        calender.set(Calendar.MINUTE, timePicker.getMinute());
+        reminderList.add(new Reminder(0, descriptionEditText.getText().toString(), getSelectedImportance(), calender.getTime().getTime()));
         finish();
     }
 }

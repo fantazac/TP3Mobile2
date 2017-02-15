@@ -1,14 +1,16 @@
 package ca.csf.mobile2.tp3.viewmodel;
 
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
 import android.os.Handler;
-
-import com.android.databinding.library.baseAdapters.BR;
+import android.support.v4.content.ContextCompat;
+import android.widget.RelativeLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ca.acodebreak.android.databind.list.DatabindableViewModel;
+import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
@@ -24,15 +26,42 @@ public class ReminderViewModel extends DatabindableViewModel<Reminder> {
     }
 
     @Bindable
-    public String getDate() {
-        SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/yy");
-        System.out.println(dateFormat.format(new Date(reminder.getUtcTime())));
-        return dateFormat.format(new Date(reminder.getUtcTime()));
+    public String getDateAndTime() {
+        String date;
+        String time;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        date = dateFormat.format(new Date(reminder.getUtcTime()));
+
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("HH:mm");
+        time = dateFormat2.format(new Date(reminder.getUtcTime()));
+
+        return date + " - " + time;
     }
 
     @Bindable
     public String getDescription() {
         return reminder.getDescription();
+    }
+
+    @Bindable
+    public int getImportance(){
+        return reminder.getImportance();
+    }
+
+    @BindingAdapter("reminderBackground")
+    public static void setReminderBackgroundWithImportance(RelativeLayout view, int importance){
+        switch (importance) {
+            case 2:
+                view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.fragment_very_important_background));
+                break;
+            case 1:
+                view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.fragment_important_background));
+                break;
+            default:
+                view.setBackground(ContextCompat.getDrawable(view.getContext(), R.drawable.fragment_not_important_background));
+                break;
+        }
     }
 
     public void delete() {

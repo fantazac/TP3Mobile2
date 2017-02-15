@@ -2,7 +2,6 @@ package ca.csf.mobile2.tp3.activity;
 
 import android.content.Intent;
 import android.icu.util.Calendar;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +10,12 @@ import android.widget.CalendarView;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import ca.acodebreak.android.databind.list.BR;
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
 import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
-import ca.csf.mobile2.tp3.databinding.ActivityReminderListBinding;
 import ca.csf.mobile2.tp3.model.ReminderList;
-import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {

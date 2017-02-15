@@ -53,7 +53,7 @@ public class ReminderListActivity extends AppCompatActivity {
 
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
-        binding.setReminderItemVariableId(BR.reminderList);
+        binding.setReminderItemVariableId(BR.reminder);
         binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
     }
 
