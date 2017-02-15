@@ -1,6 +1,7 @@
 package ca.csf.mobile2.tp3.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -14,12 +15,15 @@ import org.androidannotations.annotations.ViewById;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ca.acodebreak.android.databind.list.BR;
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
 import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
+import ca.csf.mobile2.tp3.databinding.ActivityDaySelectedBinding;
 import ca.csf.mobile2.tp3.model.ReminderList;
+import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_day_selected)
 public class DayRemindersActivity extends AppCompatActivity {
@@ -30,6 +34,8 @@ public class DayRemindersActivity extends AppCompatActivity {
     private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
     private ReminderRepository reminderRepository;
     private ReminderList reminderList;
+
+    private ActivityDaySelectedBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +52,20 @@ public class DayRemindersActivity extends AppCompatActivity {
         reminderList = reminderRepository.retrieveAll();
     }
 
-    protected void injectViews(@ViewById(R.id.dateTextView) TextView dateTextView){
+    protected void injectViews(@ViewById(R.id.dateTextView) TextView dateTextView,
+                               @ViewById(R.id.activity_day_selected) View rootView){
         this.dateTextView = dateTextView;
         selectedDate = new Date(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1));
         dateTextView.setText(getCurrentDay(selectedDate));
+
+        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
+        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
+        reminderList = reminderRepository.retrieveAll();
+
+        binding = ActivityDaySelectedBinding.bind(rootView);
+        binding.setReminderItemLayoutId(R.layout.item_reminder);
+        binding.setReminderItemVariableId(BR.reminder);
+        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
     }
 
     protected String getCurrentDay(Date date) {
