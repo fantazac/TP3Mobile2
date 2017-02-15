@@ -5,10 +5,12 @@ import android.icu.util.Calendar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
+import android.widget.DatePicker;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.Date;
 
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
@@ -20,7 +22,7 @@ import ca.csf.mobile2.tp3.model.ReminderList;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    protected CalendarView calendarView;
+    protected DatePicker datePicker;
 
     public static final String DATABASE_FILE_NAME = "reminders.db";
 
@@ -36,11 +38,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    protected void injectViews(@ViewById(R.id.calendarView) CalendarView calendarView){
-        this.calendarView = calendarView;
-        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+    protected void injectViews(@ViewById(R.id.datePicker) DatePicker datePicker){
+        this.datePicker = datePicker;
+
+        datePicker.setMinDate(Calendar.getInstance().getTime().getTime());
+        datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), (view, year, monthOfYear, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month, dayOfMonth);
+            calendar.set(year, monthOfYear, dayOfMonth);
             daySelected(calendar.getTime().getTime());
         });
     }
