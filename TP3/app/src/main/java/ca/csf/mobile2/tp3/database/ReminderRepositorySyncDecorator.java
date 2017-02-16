@@ -18,11 +18,34 @@ public class ReminderRepositorySyncDecorator implements ReminderRepository {
     @Override
     public ReminderList retrieveAll() {
         ReminderList reminderList = reminderRepository.retrieveAll();
+        setListeners(reminderList);
+        return reminderList;
+    }
 
+    @Override
+    public ReminderList retrieveAllOrderedByTime() {
+        ReminderList reminderList = reminderRepository.retrieveAllOrderedByTime();
+        setListeners(reminderList);
+        return reminderList;
+    }
+
+    @Override
+    public ReminderList retrieveAllOrderedByImportance() {
+        ReminderList reminderList = reminderRepository.retrieveAllOrderedByImportance();
+        setListeners(reminderList);
+        return reminderList;
+    }
+
+    @Override
+    public ReminderList retrieveRemindersForDay(long utcTime, long utcTimeNextDay) {
+        ReminderList reminderList = reminderRepository.retrieveRemindersForDay(utcTime, utcTimeNextDay);
+        setListeners(reminderList);
+        return reminderList;
+    }
+
+    private void setListeners(ReminderList reminderList){
         reminderList.addReminderAddedListener(reminderAddedListener);
         reminderList.addReminderRemovedListener(reminderRemovedListener);
-
-        return reminderList;
     }
 
     @Override

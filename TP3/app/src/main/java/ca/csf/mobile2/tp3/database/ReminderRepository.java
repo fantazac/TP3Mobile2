@@ -7,6 +7,12 @@ public interface ReminderRepository
 {
     ReminderList retrieveAll();
 
+    ReminderList retrieveAllOrderedByTime();
+
+    ReminderList retrieveAllOrderedByImportance();
+
+    ReminderList retrieveRemindersForDay(long utcTime, long utcTimeNextDay);
+
     void create(Reminder user);
 
     void delete(Reminder user);

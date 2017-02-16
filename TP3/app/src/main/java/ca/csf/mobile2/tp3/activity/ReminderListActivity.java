@@ -28,7 +28,8 @@ public class ReminderListActivity extends AppCompatActivity {
 
     private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
     private ReminderRepository reminderRepository;
-    private ReminderList reminderList;
+    private ReminderList reminderListOrderedByTime;
+    private ReminderList reminderListOrderedByImportance;
 
     private ActivityReminderListBinding binding;
 
@@ -49,12 +50,13 @@ public class ReminderListActivity extends AppCompatActivity {
 
         reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
+        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();
 
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
         binding.setReminderItemVariableId(BR.reminder);
-        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+        binding.setReminderList(new ReminderListViewModel(reminderListOrderedByTime, new Handler(getMainLooper())));
     }
 
     @Override
@@ -62,7 +64,8 @@ public class ReminderListActivity extends AppCompatActivity {
         super.onResume();
         reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
+        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();
     }
 
     @Override
@@ -81,8 +84,10 @@ public class ReminderListActivity extends AppCompatActivity {
 
         if (buttonId == sortByTimeButton.getId()) {
             sortByTimeButton.setSelected(true);
+            binding.setReminderList(new ReminderListViewModel(reminderListOrderedByTime, new Handler(getMainLooper())));
         } else if (buttonId == sortByImportanceButton.getId()) {
             sortByImportanceButton.setSelected(true);
+            binding.setReminderList(new ReminderListViewModel(reminderListOrderedByImportance, new Handler(getMainLooper())));
         }
     }
 }

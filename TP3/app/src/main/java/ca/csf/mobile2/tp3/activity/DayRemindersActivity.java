@@ -28,6 +28,8 @@ import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 @EActivity(R.layout.activity_day_selected)
 public class DayRemindersActivity extends AppCompatActivity {
 
+    public static final int SECONDS_IN_A_DAY = 86400000;
+
     protected TextView dateTextView;
     protected Date selectedDate;
 
@@ -49,7 +51,7 @@ public class DayRemindersActivity extends AppCompatActivity {
         super.onResume();
         reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
     }
 
     protected void injectViews(@ViewById(R.id.dateTextView) TextView dateTextView,
@@ -60,7 +62,7 @@ public class DayRemindersActivity extends AppCompatActivity {
 
         reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
 
         binding = ActivityDaySelectedBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);

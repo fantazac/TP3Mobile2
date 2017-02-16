@@ -16,12 +16,31 @@ public class ReminderSQLRepository implements ReminderRepository
 
     @Override
     public ReminderList retrieveAll() {
+        return getReminderListFromDatabase(ReminderDatabaseTable.SELECT_ALL_SQL, new String[]{});
+    }
+
+    @Override
+    public ReminderList retrieveAllOrderedByTime() {
+        return getReminderListFromDatabase(ReminderDatabaseTable.SELECT_ALL_SQL_BY_TIME, new String[]{});
+    }
+
+    @Override
+    public ReminderList retrieveAllOrderedByImportance() {
+        return getReminderListFromDatabase(ReminderDatabaseTable.SELECT_ALL_SQL_BY_IMPORTANCE, new String[]{});
+    }
+
+    @Override
+    public ReminderList retrieveRemindersForDay(long utcTime, long utcTimeNextDay) {
+        return getReminderListFromDatabase(ReminderDatabaseTable.SELECT_SQL_FROM_UTC_TIME, new String[]{String.valueOf(utcTime), String.valueOf(utcTimeNextDay)});
+    }
+
+    private ReminderList getReminderListFromDatabase(String request, String[] parametersForSelect){
         Cursor cursor = null;
 
         try {
             database.beginTransaction();
 
-            cursor = database.rawQuery(ReminderDatabaseTable.SELECT_ALL_SQL, new String[]{});
+            cursor = database.rawQuery(request, parametersForSelect);
             ReminderList reminderList = new ReminderList();
             while (cursor.moveToNext()) {
                 Reminder reminder = new Reminder(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Long.parseLong(cursor.getString(3)));

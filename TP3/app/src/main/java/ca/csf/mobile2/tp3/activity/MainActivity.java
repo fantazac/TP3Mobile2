@@ -10,8 +10,6 @@ import android.widget.DatePicker;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Date;
-
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
@@ -21,6 +19,8 @@ import ca.csf.mobile2.tp3.model.ReminderList;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
+
+    private final int MILLIS_TO_SECONDS = 1000;
 
     protected DatePicker datePicker;
 
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setMinDate(Calendar.getInstance().getTime().getTime());
         datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), (view, year, monthOfYear, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(year, monthOfYear, dayOfMonth);
-            daySelected(calendar.getTime().getTime());
+            calendar.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+            daySelected(calendar.getTime().getTime() / MILLIS_TO_SECONDS * MILLIS_TO_SECONDS);
         });
     }
 

@@ -49,7 +49,8 @@ public class CreateNewReminderActivity extends AppCompatActivity {
         super.onResume();
         reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
+                getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + DayRemindersActivity.SECONDS_IN_A_DAY);
     }
 
     @Override
