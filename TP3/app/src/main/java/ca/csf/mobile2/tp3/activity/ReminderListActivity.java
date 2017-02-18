@@ -48,10 +48,10 @@ public class ReminderListActivity extends AppCompatActivity {
 
         sortByTimeButton.setSelected(true);
 
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
+        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
         reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
-        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();
+        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();*/
 
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
@@ -62,10 +62,10 @@ public class ReminderListActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
+        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
         reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
-        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();
+        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();*/
     }
 
     @Override

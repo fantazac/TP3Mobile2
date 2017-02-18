@@ -10,11 +10,10 @@ import android.widget.DatePicker;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
-import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
-import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
 @EActivity(R.layout.activity_main)
@@ -23,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private final int MILLIS_TO_SECONDS = 1000;
 
     protected DatePicker datePicker;
-
-    public static final String DATABASE_FILE_NAME = "reminders.db";
 
     public static final String SELECTED_DATE_UTC = "UTC_DATE_FOR_REMINDER";
     public static final String SELECTED_DATE = "DATE_FOR_REMINDER";
@@ -49,12 +46,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*@Inject
+    public void initializeDependencies(){
+
+    }*/
+
     @Override
     protected void onResume(){
         super.onResume();
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, DATABASE_FILE_NAME);
+        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, DATABASE_FILE_NAME);
         reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();
+        reminderList = reminderRepository.retrieveAll();*/
     }
 
     public void daySelected(long utcTimeOfSelectedDate) {
