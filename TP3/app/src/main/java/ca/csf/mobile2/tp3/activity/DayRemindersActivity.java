@@ -15,12 +15,13 @@ import org.androidannotations.annotations.ViewById;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import ca.acodebreak.android.databind.list.BR;
+import ca.csf.mobile2.tp3.databinding.components.DayRemindersActivityComponent;
+import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
-import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
-import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityDaySelectedBinding;
 import ca.csf.mobile2.tp3.model.ReminderList;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
@@ -29,11 +30,11 @@ import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 public class DayRemindersActivity extends AppCompatActivity {
 
     public static final int SECONDS_IN_A_DAY = 86400000;
+    private final int REMINDER_CREATED = 420;
 
     protected TextView dateTextView;
     protected Date selectedDate;
 
-    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
     private ReminderRepository reminderRepository;
     private ReminderList reminderList;
 
@@ -42,15 +43,26 @@ public class DayRemindersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DayRemindersActivityComponent dayRemindersActivityComponent = getDayRemindersActivityComponent();
+        dayRemindersActivityComponent.inject(this);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
+    private DayRemindersActivityComponent getDayRemindersActivityComponent(){
+        return getMaillesReminderApplication().getDayRemindersActivityComponent();
+    }
+
+    private MaillesReminderApplication getMaillesReminderApplication(){
+        return (MaillesReminderApplication) getApplication();
+    }
+
+    @Inject
+    public void initializeDependencies(ReminderRepository reminderRepository){
+        this.reminderRepository = reminderRepository;
+
         reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
     }
 
@@ -59,10 +71,6 @@ public class DayRemindersActivity extends AppCompatActivity {
         this.dateTextView = dateTextView;
         selectedDate = new Date(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1));
         dateTextView.setText(getCurrentDay(selectedDate));
-
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
 
         binding = ActivityDaySelectedBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
@@ -100,6 +108,15 @@ public class DayRemindersActivity extends AppCompatActivity {
         Intent createNewReminder = new Intent(getApplicationContext(), CreateNewReminderActivity_.class);
         createNewReminder.putExtra(MainActivity.SELECTED_DATE, dateTextView.getText());
         createNewReminder.putExtra(MainActivity.SELECTED_DATE_UTC, selectedDate.getTime());
-        startActivity(createNewReminder);
+        startActivityForResult(createNewReminder, REMINDER_CREATED);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REMINDER_CREATED) {
+            reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
+                    getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
+            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+        }
     }
 }

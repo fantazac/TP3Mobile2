@@ -15,12 +15,17 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
+import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityComponent;
+import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
+<<<<<<< HEAD
 import ca.csf.mobile2.tp3.Service.NotifyService;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
+=======
+>>>>>>> 08bd9ba706a4fa41e3efd049e89e9a3a2079c060
 import ca.csf.mobile2.tp3.database.ReminderRepository;
-import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
-import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
@@ -41,22 +46,29 @@ public class CreateNewReminderActivity extends AppCompatActivity {
     protected TextView newDateTextView;
     protected EditText descriptionEditText;
 
-    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
-    private ReminderRepository reminderRepository;
     private ReminderList reminderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CreateNewReminderActivityComponent createNewReminderActivityComponent = getCreateNewReminderActivityComponent();
+        createNewReminderActivityComponent.inject(this);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
+    private CreateNewReminderActivityComponent getCreateNewReminderActivityComponent(){
+        return getMaillesReminderApplication().getCreateNewReminderActivityComponent();
+    }
+
+    private MaillesReminderApplication getMaillesReminderApplication(){
+        return (MaillesReminderApplication) getApplication();
+    }
+
+    @Inject
+    public void initializeDependencies(ReminderRepository reminderRepository){
         reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
                 getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + DayRemindersActivity.SECONDS_IN_A_DAY);
     }

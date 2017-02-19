@@ -3,6 +3,7 @@
     package="ca.csf.mobile2.tp3" >
 
     <application
+        android:name=".databinding.application.MaillesReminderApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

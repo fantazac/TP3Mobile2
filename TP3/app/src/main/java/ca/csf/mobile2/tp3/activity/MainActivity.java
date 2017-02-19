@@ -10,11 +10,13 @@ import android.widget.DatePicker;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+
+import javax.inject.Inject;
+
+import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
+import ca.csf.mobile2.tp3.databinding.components.MainActivityComponent;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
-import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
-import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
 @EActivity(R.layout.activity_main)
@@ -24,18 +26,25 @@ public class MainActivity extends AppCompatActivity {
 
     protected DatePicker datePicker;
 
-    public static final String DATABASE_FILE_NAME = "reminders.db";
-
     public static final String SELECTED_DATE_UTC = "UTC_DATE_FOR_REMINDER";
     public static final String SELECTED_DATE = "DATE_FOR_REMINDER";
 
-    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
-    private ReminderRepository reminderRepository;
     private ReminderList reminderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivityComponent mainActivityComponent = getMainActivityComponent();
+        mainActivityComponent.inject(this);
+    }
+
+    private MainActivityComponent getMainActivityComponent(){
+        return getMaillesReminderApplication().getMainActivityComponent();
+    }
+
+    private MaillesReminderApplication getMaillesReminderApplication(){
+        return (MaillesReminderApplication) getApplication();
     }
 
     protected void injectViews(@ViewById(R.id.datePicker) DatePicker datePicker){
@@ -49,11 +58,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
+    @Inject
+    public void initializeDependencies(ReminderRepository reminderRepository){
         reminderList = reminderRepository.retrieveAll();
     }
 
