@@ -144,7 +144,11 @@ public class CreateNewReminderActivity extends AppCompatActivity {
     private void alarmMethod(Calendar calendar){
         Intent myIntent = new Intent(getApplicationContext() , NotifyService.class);
         myIntent.putExtra(REMINDER_DESCRIPTION, descriptionEditText.getText().toString());
-        myIntent.putExtra(REMINDER_TIME, String.valueOf(timePicker.getHour()) + ":" + String.valueOf(timePicker.getMinute()));
+        String minutes = String.valueOf(timePicker.getMinute());
+        if(minutes.length() == 1){
+            minutes = "0" + minutes;
+        }
+        myIntent.putExtra(REMINDER_TIME, String.valueOf(timePicker.getHour()) + ":" + minutes);
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

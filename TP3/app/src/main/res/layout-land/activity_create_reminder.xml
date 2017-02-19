@@ -13,29 +13,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/newReminderTextView"
-        android:layout_marginTop="16dp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.2" />
 
     <Button
         android:text="@string/create_reminder"
-        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:id="@+id/createReminderButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintRight_toRightOf="parent"
         android:onClick="returnToDaySelected"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintHorizontal_bias="0.91" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_width="150dp" />
 
     <TextView
         android:text="Vendredi, 10 février 2017"
@@ -44,10 +40,11 @@
         android:id="@+id/newDateTextView"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/newReminderTextView"
-        app:layout_constraintRight_toRightOf="@+id/newReminderTextView"
-        app:layout_constraintLeft_toLeftOf="@+id/newReminderTextView" />
+        app:layout_constraintTop_toTopOf="@+id/newReminderTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/newReminderTextView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.8" />
 
     <TextView
         android:text="@string/description"
@@ -62,7 +59,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/descriptionEditText" />
 
     <EditText
-        android:layout_width="171dp"
         android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="@string/description_hint"
@@ -73,7 +69,8 @@
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toRightOf="@+id/descriptionTextView"
         app:layout_constraintTop_toBottomOf="@+id/newDateTextView"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:layout_width="450dp" />
 
     <TimePicker
         android:id="@+id/timePicker"
@@ -81,20 +78,23 @@
         android:layout_width="wrap_content"
         android:numbersTextColor="@color/black"
         android:layout_height="148dp"
-        tools:layout_editor_absoluteY="91dp"
-        tools:layout_editor_absoluteX="320dp" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEditText"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
         android:text="@string/not_important"
         android:textSize="12sp"
         android:id="@+id/notImportantButton"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_height="48dp"
         android:layout_width="112dp"
         android:background="@drawable/button_selected_not_important"
         android:onClick="onImportanceButtonClicked"
-        tools:layout_editor_absoluteY="147dp"
-        android:layout_marginStart="24dp" />
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/timePicker"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
 
     <Button
         android:text="@string/important"
@@ -104,8 +104,10 @@
         android:background="@drawable/button_selected_important"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"
-        tools:layout_editor_absoluteY="199dp"
-        tools:layout_editor_absoluteX="24dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/notImportantButton"
+        app:layout_constraintLeft_toRightOf="@+id/notImportantButton"
+        app:layout_constraintTop_toTopOf="@+id/notImportantButton"
+        android:layout_marginStart="8dp" />
 
     <Button
         android:text="@string/very_important"
@@ -115,8 +117,10 @@
         android:background="@drawable/button_selected_very_important"
         android:layout_width="112dp"
         android:onClick="onImportanceButtonClicked"
-        tools:layout_editor_absoluteY="251dp"
-        tools:layout_editor_absoluteX="24dp" />
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/importantButton"
+        app:layout_constraintTop_toTopOf="@+id/importantButton"
+        app:layout_constraintBottom_toBottomOf="@+id/importantButton" />
 
 
 </android.support.constraint.ConstraintLayout>

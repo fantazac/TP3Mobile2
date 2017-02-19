@@ -36,11 +36,11 @@
             app:databindableItemLayout="@{reminderItemLayoutId}"
             app:databindableItemVariableId="@{reminderItemVariableId}"
             app:databindableItems="@{reminderList}"
-            android:layout_width="350dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/dateTextView"
             app:layout_constraintBottom_toTopOf="@+id/addReminderButton"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_width="500dp" />
 
         <TextView
             android:text="Jeudi, 9 février 2017"
@@ -59,7 +59,6 @@
 
         <Button
             android:text="@string/addReminder"
-            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:id="@+id/addReminderButton"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -68,7 +67,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginEnd="16dp"
             app:layout_constraintRight_toRightOf="parent"
-            android:onClick="createNewReminder"/>
+            android:onClick="createNewReminder"
+            android:layout_width="500dp" />
 
     </android.support.constraint.ConstraintLayout>
 
