@@ -1,6 +1,6 @@
 package ca.csf.mobile2.tp3.activity;
 
-import android.icu.util.Calendar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,12 +16,20 @@ import org.androidannotations.annotations.ViewById;
 import java.util.Date;
 
 import ca.csf.mobile2.tp3.R;
+import ca.csf.mobile2.tp3.Service.NotifyService;
 import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
 import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.widget.Toast;
+
+import java.util.Calendar;
 
 @EActivity(R.layout.activity_create_reminder)
 public class CreateNewReminderActivity extends AppCompatActivity {
@@ -116,6 +124,18 @@ public class CreateNewReminderActivity extends AppCompatActivity {
         calender.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
         calender.set(Calendar.MINUTE, timePicker.getMinute());
         reminderList.add(new Reminder(0, descriptionEditText.getText().toString(), getSelectedImportance(), calender.getTime().getTime()));
+        alarmMethod(calender);
+
         finish();
+    }
+
+    private void alarmMethod(Calendar calendar){
+        Intent myIntent = new Intent(getApplicationContext() , NotifyService.class);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP, (calendar.getTimeInMillis()), pendingIntent);
+
+        Toast.makeText(CreateNewReminderActivity.this, "Reminder added", Toast.LENGTH_LONG).show();
     }
 }

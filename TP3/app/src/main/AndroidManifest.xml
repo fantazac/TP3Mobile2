@@ -18,6 +18,9 @@
         <activity android:name=".activity.CreateNewReminderActivity_" />
         <activity android:name=".activity.DayRemindersActivity_" />
         <activity android:name=".activity.ReminderListActivity_" />
+
+        <service android:name=".Service.NotifyService"
+            android:enabled="true" />
     </application>
 
 </manifest>
