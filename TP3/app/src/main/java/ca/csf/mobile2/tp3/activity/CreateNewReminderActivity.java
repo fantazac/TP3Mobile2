@@ -20,11 +20,8 @@ import javax.inject.Inject;
 import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityComponent;
 import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-<<<<<<< HEAD
 import ca.csf.mobile2.tp3.Service.NotifyService;
-import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
-=======
->>>>>>> 08bd9ba706a4fa41e3efd049e89e9a3a2079c060
+
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
