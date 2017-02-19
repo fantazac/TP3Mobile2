@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_reminder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.csf.mobile2.tp3.activity.MainActivity">
+
+
+    <TextView
+        android:text="Nouveau rappel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newReminderTextView"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:text="@string/create_reminder"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/createReminderButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="returnToDaySelected"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.91" />
+
+    <TextView
+        android:text="Vendredi, 10 février 2017"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newDateTextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/newReminderTextView"
+        app:layout_constraintRight_toRightOf="@+id/newReminderTextView"
+        app:layout_constraintLeft_toLeftOf="@+id/newReminderTextView" />
+
+    <TextView
+        android:text="@string/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/descriptionTextView"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/descriptionEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/descriptionEditText" />
+
+    <EditText
+        android:layout_width="171dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/description_hint"
+        android:ems="10"
+        android:imeOptions="actionDone"
+        android:backgroundTint="@color/gray"
+        android:id="@+id/descriptionEditText"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/descriptionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/newDateTextView"
+        android:layout_marginTop="16dp" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:timePickerMode="spinner"
+        android:layout_width="wrap_content"
+        android:numbersTextColor="@color/black"
+        android:layout_height="148dp"
+        tools:layout_editor_absoluteY="91dp"
+        tools:layout_editor_absoluteX="320dp" />
+
+    <Button
+        android:text="@string/not_important"
+        android:textSize="12sp"
+        android:id="@+id/notImportantButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="48dp"
+        android:layout_width="112dp"
+        android:background="@drawable/button_selected_not_important"
+        android:onClick="onImportanceButtonClicked"
+        tools:layout_editor_absoluteY="147dp"
+        android:layout_marginStart="24dp" />
+
+    <Button
+        android:text="@string/important"
+        android:textSize="12sp"
+        android:id="@+id/importantButton"
+        android:layout_height="48dp"
+        android:background="@drawable/button_selected_important"
+        android:layout_width="112dp"
+        android:onClick="onImportanceButtonClicked"
+        tools:layout_editor_absoluteY="199dp"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <Button
+        android:text="@string/very_important"
+        android:textSize="12sp"
+        android:id="@+id/veryImportantButton"
+        android:layout_height="48dp"
+        android:background="@drawable/button_selected_very_important"
+        android:layout_width="112dp"
+        android:onClick="onImportanceButtonClicked"
+        tools:layout_editor_absoluteY="251dp"
+        tools:layout_editor_absoluteX="24dp" />
+
+
+</android.support.constraint.ConstraintLayout>
