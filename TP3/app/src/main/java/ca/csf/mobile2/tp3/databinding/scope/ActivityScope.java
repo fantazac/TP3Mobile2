@@ -1,4 +1,4 @@
-package ca.csf.mobile2.tp3;
+package ca.csf.mobile2.tp3.databinding.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

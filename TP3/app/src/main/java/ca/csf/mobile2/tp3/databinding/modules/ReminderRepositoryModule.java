@@ -1,4 +1,4 @@
-package ca.csf.mobile2.tp3;
+package ca.csf.mobile2.tp3.databinding.modules;
 
 import javax.inject.Singleton;
 

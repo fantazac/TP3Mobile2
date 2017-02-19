@@ -11,8 +11,11 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 
+import javax.inject.Inject;
+
+import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
+import ca.csf.mobile2.tp3.databinding.components.MainActivityComponent;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
@@ -26,13 +29,22 @@ public class MainActivity extends AppCompatActivity {
     public static final String SELECTED_DATE_UTC = "UTC_DATE_FOR_REMINDER";
     public static final String SELECTED_DATE = "DATE_FOR_REMINDER";
 
-    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
-    private ReminderRepository reminderRepository;
     private ReminderList reminderList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivityComponent mainActivityComponent = getMainActivityComponent();
+        mainActivityComponent.inject(this);
+    }
+
+    private MainActivityComponent getMainActivityComponent(){
+        return getMaillesReminderApplication().getMainActivityComponent();
+    }
+
+    private MaillesReminderApplication getMaillesReminderApplication(){
+        return (MaillesReminderApplication) getApplication();
     }
 
     protected void injectViews(@ViewById(R.id.datePicker) DatePicker datePicker){
@@ -46,17 +58,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*@Inject
-    public void initializeDependencies(){
-
-    }*/
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderList = reminderRepository.retrieveAll();*/
+    @Inject
+    public void initializeDependencies(ReminderRepository reminderRepository){
+        reminderList = reminderRepository.retrieveAll();
     }
 
     public void daySelected(long utcTimeOfSelectedDate) {

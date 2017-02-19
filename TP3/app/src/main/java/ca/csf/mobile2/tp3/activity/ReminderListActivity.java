@@ -10,13 +10,15 @@ import android.widget.Button;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import javax.inject.Inject;
+
 import ca.acodebreak.android.databind.list.BR;
+import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
+import ca.csf.mobile2.tp3.databinding.components.ReminderListActivityComponent;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
-import ca.csf.mobile2.tp3.database.ReminderRepositorySyncDecorator;
-import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityReminderListBinding;
+import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
@@ -26,18 +28,35 @@ public class ReminderListActivity extends AppCompatActivity {
     protected Button sortByTimeButton;
     protected Button sortByImportanceButton;
 
-    private ReminderDatabaseTableHelper reminderDatabaseTableHelper;
     private ReminderRepository reminderRepository;
-    private ReminderList reminderListOrderedByTime;
-    private ReminderList reminderListOrderedByImportance;
+    private ReminderList reminderList;
 
     private ActivityReminderListBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ReminderListActivityComponent reminderListActivityComponent = getReminderListActivityComponent();
+        reminderListActivityComponent.inject(this);
+
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private ReminderListActivityComponent getReminderListActivityComponent(){
+        return getMaillesReminderApplication().getReminderListActivityComponent();
+    }
+
+    private MaillesReminderApplication getMaillesReminderApplication(){
+        return (MaillesReminderApplication) getApplication();
+    }
+
+    @Inject
+    public void initializeDependencies(ReminderRepository reminderRepository){
+        this.reminderRepository = reminderRepository;
+
+        reminderList = reminderRepository.retrieveAllOrderedByTime();
     }
 
     protected void injectViews(@ViewById(R.id.sortByTimeButton) Button sortByTimeButton,
@@ -48,24 +67,10 @@ public class ReminderListActivity extends AppCompatActivity {
 
         sortByTimeButton.setSelected(true);
 
-        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
-        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();*/
-
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
         binding.setReminderItemVariableId(BR.reminder);
-        binding.setReminderList(new ReminderListViewModel(reminderListOrderedByTime, new Handler(getMainLooper())));
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        /*reminderDatabaseTableHelper = new ReminderDatabaseTableHelper(this, MainActivity.DATABASE_FILE_NAME);
-        reminderRepository = new ReminderRepositorySyncDecorator(new ReminderSQLRepository(reminderDatabaseTableHelper.getWritableDatabase()));
-        reminderListOrderedByTime = reminderRepository.retrieveAllOrderedByTime();
-        reminderListOrderedByImportance = reminderRepository.retrieveAllOrderedByImportance();*/
+        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
     }
 
     @Override
@@ -84,10 +89,12 @@ public class ReminderListActivity extends AppCompatActivity {
 
         if (buttonId == sortByTimeButton.getId()) {
             sortByTimeButton.setSelected(true);
-            binding.setReminderList(new ReminderListViewModel(reminderListOrderedByTime, new Handler(getMainLooper())));
+            reminderList = reminderRepository.retrieveAllOrderedByTime();
+            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
         } else if (buttonId == sortByImportanceButton.getId()) {
             sortByImportanceButton.setSelected(true);
-            binding.setReminderList(new ReminderListViewModel(reminderListOrderedByImportance, new Handler(getMainLooper())));
+            reminderList = reminderRepository.retrieveAllOrderedByImportance();
+            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
         }
     }
 }
