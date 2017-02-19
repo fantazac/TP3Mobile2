@@ -36,6 +36,9 @@ import java.util.Calendar;
 @EActivity(R.layout.activity_create_reminder)
 public class CreateNewReminderActivity extends AppCompatActivity {
 
+    public static String REMINDER_DESCRIPTION = "REMINDER_DESCRIPTION";
+    public static String REMINDER_TIME = "REMINDER_TIME";
+
     protected TimePicker timePicker;
     protected Button notImportantButton;
     protected Button importantButton;
@@ -140,6 +143,8 @@ public class CreateNewReminderActivity extends AppCompatActivity {
 
     private void alarmMethod(Calendar calendar){
         Intent myIntent = new Intent(getApplicationContext() , NotifyService.class);
+        myIntent.putExtra(REMINDER_DESCRIPTION, descriptionEditText.getText().toString());
+        myIntent.putExtra(REMINDER_TIME, String.valueOf(timePicker.getHour()) + ":" + String.valueOf(timePicker.getMinute()));
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 

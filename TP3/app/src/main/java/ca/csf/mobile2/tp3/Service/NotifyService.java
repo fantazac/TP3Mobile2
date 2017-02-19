@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import ca.csf.mobile2.tp3.R;
+import ca.csf.mobile2.tp3.activity.CreateNewReminderActivity;
 import ca.csf.mobile2.tp3.activity.MainActivity;
 
 public class NotifyService extends Service{
@@ -23,21 +24,24 @@ public class NotifyService extends Service{
     }
 
     @Override
-    public void onCreate(){
+    public int onStartCommand(Intent intent, int flags, int startId) {
         Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         Notification mNotify = new Notification.Builder(this)
-                .setContentTitle("Mailles Reminder")
-                .setContentText("You have a reminder!")
+                .setContentTitle("You have a reminder! - " + intent.getStringExtra(CreateNewReminderActivity.REMINDER_TIME))
+                .setContentText(intent.getStringExtra(CreateNewReminderActivity.REMINDER_DESCRIPTION))
                 .setSmallIcon(R.drawable.ic_add)
                 .setContentIntent(pendingIntent)
+                .setColor(100)
                 .setSound(sound)
                 .build();
-
+        System.out.println(intent.getStringExtra(CreateNewReminderActivity.REMINDER_DESCRIPTION));
         notificationManager.notify(1, mNotify);
+
+        return super.onStartCommand(intent, flags, startId);
     }
 }
