@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityComponent;
 import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.Service.NotifyService;
+import ca.csf.mobile2.tp3.service.NotifyService;
 
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
@@ -145,6 +145,6 @@ public class CreateNewReminderActivity extends AppCompatActivity {
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, (calendar.getTimeInMillis()), pendingIntent);
 
-        Toast.makeText(CreateNewReminderActivity.this, "Reminder added", Toast.LENGTH_LONG).show();
+        Toast.makeText(CreateNewReminderActivity.this, "Reminder added!", Toast.LENGTH_LONG).show();
     }
 }

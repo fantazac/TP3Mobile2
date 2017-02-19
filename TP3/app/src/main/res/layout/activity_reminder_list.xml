@@ -74,6 +74,7 @@
             android:layout_height="48dp"
             android:background="@drawable/button_selected_sort"
             android:layout_width="112dp"
+            android:onClick="onSortButtonClicked"
             app:layout_constraintLeft_toRightOf="@+id/sortByTimeButton"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="16dp"

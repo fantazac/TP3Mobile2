@@ -1,4 +1,4 @@
-package ca.csf.mobile2.tp3.Service;
+package ca.csf.mobile2.tp3.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -31,7 +31,7 @@ public class NotifyService extends Service{
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         Notification mNotify = new Notification.Builder(this)
-                .setContentTitle("Maille Reminder")
+                .setContentTitle("Mailles Reminder")
                 .setContentText("You have a reminder!")
                 .setSmallIcon(R.drawable.ic_add)
                 .setContentIntent(pendingIntent)
