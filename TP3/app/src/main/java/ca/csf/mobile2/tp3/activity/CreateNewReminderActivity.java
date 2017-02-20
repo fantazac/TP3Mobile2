@@ -20,24 +20,17 @@ import javax.inject.Inject;
 import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityComponent;
 import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.service.NotifyService;
 
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
 @EActivity(R.layout.activity_create_reminder)
 public class CreateNewReminderActivity extends AppCompatActivity {
-
-    public static String REMINDER_DESCRIPTION = "REMINDER_DESCRIPTION";
-    public static String REMINDER_TIME = "REMINDER_TIME";
 
     protected TimePicker timePicker;
     protected Button notImportantButton;
@@ -70,7 +63,7 @@ public class CreateNewReminderActivity extends AppCompatActivity {
     @Inject
     public void initializeDependencies(ReminderRepository reminderRepository){
         reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
-                getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + DayRemindersActivity.SECONDS_IN_A_DAY);
+                getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + MainActivity.SECONDS_IN_A_DAY);
     }
 
     @Override
@@ -130,30 +123,14 @@ public class CreateNewReminderActivity extends AppCompatActivity {
         }
     }
 
-    public void returnToDaySelected(View view) {
+    public void createNewReminder(View view) {
         Calendar calender = Calendar.getInstance();
         calender.setTime(new Date(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1)));
         calender.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
         calender.set(Calendar.MINUTE, timePicker.getMinute());
         reminderList.add(new Reminder(0, descriptionEditText.getText().toString(), getSelectedImportance(), calender.getTime().getTime()));
-        alarmMethod(calender);
-
+        Toast.makeText(CreateNewReminderActivity.this, "Reminder added!", Toast.LENGTH_LONG).show();
         finish();
     }
 
-    private void alarmMethod(Calendar calendar){
-        Intent myIntent = new Intent(getApplicationContext() , NotifyService.class);
-        myIntent.putExtra(REMINDER_DESCRIPTION, descriptionEditText.getText().toString());
-        String minutes = String.valueOf(timePicker.getMinute());
-        if(minutes.length() == 1){
-            minutes = "0" + minutes;
-        }
-        myIntent.putExtra(REMINDER_TIME, String.valueOf(timePicker.getHour()) + ":" + minutes);
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP, (calendar.getTimeInMillis()), pendingIntent);
-
-        Toast.makeText(CreateNewReminderActivity.this, "Reminder added!", Toast.LENGTH_LONG).show();
-    }
 }

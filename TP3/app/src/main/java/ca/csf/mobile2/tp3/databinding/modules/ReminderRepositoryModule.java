@@ -9,10 +9,6 @@ import ca.csf.mobile2.tp3.database.ReminderSQLRepository;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Alexandre on 2017-02-17.
- */
-
 @Module
 public class ReminderRepositoryModule {
 

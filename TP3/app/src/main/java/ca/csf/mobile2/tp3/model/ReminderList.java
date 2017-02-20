@@ -26,6 +26,7 @@ public class ReminderList implements Iterable<Reminder> {
         notifyReminderRemoved(reminder);
     }
 
+<<<<<<< HEAD
     //For unit tests only
     public int getReminderListCount()
     {
@@ -42,6 +43,14 @@ public class ReminderList implements Iterable<Reminder> {
     public int getReminderRemovedListenersCount()
     {
         return reminderRemovedListeners.size();
+=======
+    public boolean isEmpty(){
+        return reminders.isEmpty();
+    }
+
+    public Reminder getReminder(int id){
+        return reminders.get(id);
+>>>>>>> 2c74b83c285008aece048aa35c8f9ba7dce727e8
     }
 
     public void addReminderAddedListener(ReminderAddedListener listener) {
@@ -82,7 +91,7 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     public interface ReminderRemovedListener {
-        void onReminderRemoved(Reminder user);
+        void onReminderRemoved(Reminder reminder);
     }
 
 }

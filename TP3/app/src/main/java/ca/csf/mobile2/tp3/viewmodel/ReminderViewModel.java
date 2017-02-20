@@ -2,7 +2,7 @@ package ca.csf.mobile2.tp3.viewmodel;
 
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
-import android.os.Handler;
+
 import android.support.v4.content.ContextCompat;
 import android.widget.RelativeLayout;
 
@@ -17,12 +17,10 @@ import ca.csf.mobile2.tp3.model.ReminderList;
 public class ReminderViewModel extends DatabindableViewModel<Reminder> {
     private final ReminderList reminderList;
     private final Reminder reminder;
-    private final Handler handler;
 
-    public ReminderViewModel(ReminderList reminderList, Reminder reminder, Handler handler) {
+    public ReminderViewModel(ReminderList reminderList, Reminder reminder) {
         this.reminderList = reminderList;
         this.reminder = reminder;
-        this.handler = handler;
     }
 
     @Bindable

@@ -1,18 +1,10 @@
 package ca.csf.mobile2.tp3.activity;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -25,8 +17,8 @@ import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.databinding.components.ReminderListActivityComponent;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityReminderListBinding;
-import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
+import ca.csf.mobile2.tp3.service.NotifyService;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_reminder_list)
@@ -77,7 +69,7 @@ public class ReminderListActivity extends AppCompatActivity {
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
         binding.setReminderItemVariableId(BR.reminder);
-        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+        binding.setReminderList(new ReminderListViewModel(reminderList));
     }
 
     @Override
@@ -97,11 +89,20 @@ public class ReminderListActivity extends AppCompatActivity {
         if (buttonId == sortByTimeButton.getId()) {
             sortByTimeButton.setSelected(true);
             reminderList = reminderRepository.retrieveAllOrderedByTime();
-            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+            setupNewService();
+            binding.setReminderList(new ReminderListViewModel(reminderList));
         } else if (buttonId == sortByImportanceButton.getId()) {
             sortByImportanceButton.setSelected(true);
             reminderList = reminderRepository.retrieveAllOrderedByImportance();
-            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+            setupNewService();
+            binding.setReminderList(new ReminderListViewModel(reminderList));
+        }
+    }
+
+    protected void setupNewService(){
+        ReminderList temporaryList = reminderRepository.retrieveAllOrderedByTime();
+        if(!temporaryList.isEmpty()){
+            NotifyService.setupService(getApplicationContext(), temporaryList);
         }
     }
 }

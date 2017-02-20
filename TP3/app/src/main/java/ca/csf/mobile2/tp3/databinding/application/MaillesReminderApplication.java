@@ -7,8 +7,10 @@ import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityCompon
 import ca.csf.mobile2.tp3.databinding.components.DaggerApplicationComponent;
 import ca.csf.mobile2.tp3.databinding.components.DaggerCreateNewReminderActivityComponent;
 import ca.csf.mobile2.tp3.databinding.components.DaggerDayRemindersActivityComponent;
+import ca.csf.mobile2.tp3.databinding.components.DaggerMainActivityComponent;
 import ca.csf.mobile2.tp3.databinding.components.DaggerReminderListActivityComponent;
 import ca.csf.mobile2.tp3.databinding.components.DayRemindersActivityComponent;
+import ca.csf.mobile2.tp3.databinding.components.MainActivityComponent;
 import ca.csf.mobile2.tp3.databinding.components.ReminderListActivityComponent;
 import ca.csf.mobile2.tp3.databinding.modules.ReminderDatabaseTableHelperModule;
 
@@ -25,6 +27,10 @@ public class MaillesReminderApplication extends Application {
 
     private ApplicationComponent createApplicationComponent(){
         return DaggerApplicationComponent.builder().reminderDatabaseTableHelperModule(new ReminderDatabaseTableHelperModule(this)).build();
+    }
+
+    public MainActivityComponent getMainActivityComponent(){
+        return DaggerMainActivityComponent.builder().applicationComponent(applicationComponent).build();
     }
 
     public DayRemindersActivityComponent getDayRemindersActivityComponent(){
