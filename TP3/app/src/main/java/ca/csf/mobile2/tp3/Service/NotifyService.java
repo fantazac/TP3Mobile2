@@ -21,6 +21,7 @@ import ca.csf.mobile2.tp3.model.ReminderList;
 
 public class NotifyService extends Service{
 
+    //Voir commentaires dans le .txt de la remise pour les static et la façon de faire
     private static String reminderTime = "";
     private static String description = "";
     private static Context contextLocal;
