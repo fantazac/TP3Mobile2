@@ -26,6 +26,24 @@ public class ReminderList implements Iterable<Reminder> {
         notifyReminderRemoved(reminder);
     }
 
+    //For unit tests only
+    public int getReminderListCount()
+    {
+        return reminders.size();
+    }
+
+    //For unit tests only
+    public int getReminderAddedListenersCount()
+    {
+        return reminderAddedListeners.size();
+    }
+
+    //For unit tests only
+    public int getReminderRemovedListenersCount()
+    {
+        return reminderRemovedListeners.size();
+    }
+
     public void addReminderAddedListener(ReminderAddedListener listener) {
         reminderAddedListeners.add(listener);
     }
