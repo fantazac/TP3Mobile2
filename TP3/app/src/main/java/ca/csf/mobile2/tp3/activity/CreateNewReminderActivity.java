@@ -20,15 +20,11 @@ import javax.inject.Inject;
 import ca.csf.mobile2.tp3.databinding.components.CreateNewReminderActivityComponent;
 import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
-import ca.csf.mobile2.tp3.service.NotifyService;
 
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -127,7 +123,7 @@ public class CreateNewReminderActivity extends AppCompatActivity {
         }
     }
 
-    public void returnToDaySelected(View view) {
+    public void createNewReminder(View view) {
         Calendar calender = Calendar.getInstance();
         calender.setTime(new Date(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1)));
         calender.set(Calendar.HOUR_OF_DAY, timePicker.getHour());

@@ -33,4 +33,10 @@ public class ReminderListViewModel extends DatabindableViewModelList<Reminder> {
         return new ReminderViewModel(reminderList, reminder);
     }
 
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        reminderList.removeReminderAddedListener(this::onReminderAdded);
+        reminderList.removeReminderRemovedListener(this::onReminderRemoved);
+    }
 }

@@ -23,7 +23,6 @@ import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityDaySelectedBinding;
-import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 import ca.csf.mobile2.tp3.service.NotifyService;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
@@ -104,7 +103,7 @@ public class DayRemindersActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void createNewReminder(View view) {
+    public void onCreateNewReminderButtonClicked(View view) {
         Intent createNewReminder = new Intent(getApplicationContext(), CreateNewReminderActivity_.class);
         createNewReminder.putExtra(MainActivity.SELECTED_DATE, dateTextView.getText());
         createNewReminder.putExtra(MainActivity.SELECTED_DATE_UTC, selectedDate.getTime());

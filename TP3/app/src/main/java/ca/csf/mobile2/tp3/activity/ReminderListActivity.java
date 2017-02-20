@@ -1,18 +1,10 @@
 package ca.csf.mobile2.tp3.activity;
 
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
@@ -25,7 +17,6 @@ import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.databinding.components.ReminderListActivityComponent;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityReminderListBinding;
-import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 import ca.csf.mobile2.tp3.service.NotifyService;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;

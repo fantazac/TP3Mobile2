@@ -16,10 +16,8 @@ import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.databinding.components.MainActivityComponent;
-import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
 import ca.csf.mobile2.tp3.service.NotifyService;
-import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity{
@@ -36,8 +34,6 @@ public class MainActivity extends AppCompatActivity{
 
     public static final String SELECTED_DATE_UTC = "UTC_DATE_FOR_REMINDER";
     public static final String SELECTED_DATE = "DATE_FOR_REMINDER";
-    public static final String REMINDER_DESCRIPTION = "REMINDER_DESCRIPTION";
-    public static final String REMINDER_TIME = "REMINDER_TIME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +55,10 @@ public class MainActivity extends AppCompatActivity{
     public void initializeDependencies(ReminderRepository reminderRepository){
         this.reminderRepository = reminderRepository;
 
-        setupReminderAlarm();
+        setupAlarmForEarliestReminder();
     }
 
-    protected void setupReminderAlarm(){
+    protected void setupAlarmForEarliestReminder(){
         reminderList = reminderRepository.retrieveAllOrderedByTime();
 
         if(!reminderList.isEmpty()){
@@ -77,17 +73,17 @@ public class MainActivity extends AppCompatActivity{
         datePicker.init(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), (view, year, monthOfYear, dayOfMonth) -> {
             Calendar calendar = Calendar.getInstance();
             calendar.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
-            daySelected(calendar.getTime().getTime() / MILLIS_TO_SECONDS * MILLIS_TO_SECONDS);
+            onDaySelected(calendar.getTime().getTime() / MILLIS_TO_SECONDS * MILLIS_TO_SECONDS);
         });
     }
 
-    public void daySelected(long utcTimeOfSelectedDate) {
+    public void onDaySelected(long utcTimeOfSelectedDate) {
         Intent dayReminders = new Intent(getApplicationContext(), DayRemindersActivity_.class);
         dayReminders.putExtra(SELECTED_DATE_UTC, utcTimeOfSelectedDate);
         startActivityForResult(dayReminders, BACK_TO_MAIN_ACTIVITY);
     }
 
-    public void onClickShowReminderList(View view) {
+    public void onShowReminderListButtonClicked(View view) {
         Intent reminderList = new Intent(getApplicationContext(), ReminderListActivity_.class);
         startActivityForResult(reminderList, BACK_TO_MAIN_ACTIVITY);
     }
@@ -95,7 +91,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == BACK_TO_MAIN_ACTIVITY) {
-            setupReminderAlarm();
+            setupAlarmForEarliestReminder();
         }
     }
 }
