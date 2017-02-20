@@ -26,6 +26,14 @@ public class ReminderList implements Iterable<Reminder> {
         notifyReminderRemoved(reminder);
     }
 
+    public boolean isEmpty(){
+        return reminders.isEmpty();
+    }
+
+    public Reminder getReminder(int id){
+        return reminders.get(id);
+    }
+
     public void addReminderAddedListener(ReminderAddedListener listener) {
         reminderAddedListeners.add(listener);
     }
@@ -64,7 +72,7 @@ public class ReminderList implements Iterable<Reminder> {
     }
 
     public interface ReminderRemovedListener {
-        void onReminderRemoved(Reminder user);
+        void onReminderRemoved(Reminder reminder);
     }
 
 }

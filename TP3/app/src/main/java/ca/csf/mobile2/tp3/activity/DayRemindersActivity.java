@@ -23,14 +23,13 @@ import ca.csf.mobile2.tp3.databinding.application.MaillesReminderApplication;
 import ca.csf.mobile2.tp3.R;
 import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityDaySelectedBinding;
+import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
+import ca.csf.mobile2.tp3.service.NotifyService;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_day_selected)
 public class DayRemindersActivity extends AppCompatActivity {
-
-    public static final int SECONDS_IN_A_DAY = 86400000;
-    private final int REMINDER_CREATED = 420;
 
     protected TextView dateTextView;
     protected Date selectedDate;
@@ -63,7 +62,8 @@ public class DayRemindersActivity extends AppCompatActivity {
     public void initializeDependencies(ReminderRepository reminderRepository){
         this.reminderRepository = reminderRepository;
 
-        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1), getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
+        reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
+                getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + MainActivity.SECONDS_IN_A_DAY);
     }
 
     protected void injectViews(@ViewById(R.id.dateTextView) TextView dateTextView,
@@ -75,7 +75,7 @@ public class DayRemindersActivity extends AppCompatActivity {
         binding = ActivityDaySelectedBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
         binding.setReminderItemVariableId(BR.reminder);
-        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+        binding.setReminderList(new ReminderListViewModel(reminderList));
     }
 
     protected String getCurrentDay(Date date) {
@@ -108,15 +108,19 @@ public class DayRemindersActivity extends AppCompatActivity {
         Intent createNewReminder = new Intent(getApplicationContext(), CreateNewReminderActivity_.class);
         createNewReminder.putExtra(MainActivity.SELECTED_DATE, dateTextView.getText());
         createNewReminder.putExtra(MainActivity.SELECTED_DATE_UTC, selectedDate.getTime());
-        startActivityForResult(createNewReminder, REMINDER_CREATED);
+        startActivityForResult(createNewReminder, MainActivity.REMINDER_CREATED);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REMINDER_CREATED) {
+        if (requestCode == MainActivity.REMINDER_CREATED) {
             reminderList = reminderRepository.retrieveRemindersForDay(getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1),
-                    getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + SECONDS_IN_A_DAY);
-            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+                    getIntent().getLongExtra(MainActivity.SELECTED_DATE_UTC, -1) + MainActivity.SECONDS_IN_A_DAY);
+            binding.setReminderList(new ReminderListViewModel(reminderList));
+            ReminderList temporaryList = reminderRepository.retrieveAllOrderedByTime();
+            if(!temporaryList.isEmpty()){
+                NotifyService.setupService(getApplicationContext(), temporaryList);
+            }
         }
     }
 }

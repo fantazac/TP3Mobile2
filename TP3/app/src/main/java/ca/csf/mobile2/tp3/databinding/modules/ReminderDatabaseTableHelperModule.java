@@ -8,9 +8,6 @@ import ca.csf.mobile2.tp3.database.ReminderDatabaseTableHelper;
 import dagger.Module;
 import dagger.Provides;
 
-/**
- * Created by Alexandre on 2017-02-17.
- */
 @Module
 public class ReminderDatabaseTableHelperModule {
 

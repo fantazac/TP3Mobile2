@@ -27,6 +27,7 @@ import ca.csf.mobile2.tp3.database.ReminderRepository;
 import ca.csf.mobile2.tp3.databinding.ActivityReminderListBinding;
 import ca.csf.mobile2.tp3.model.Reminder;
 import ca.csf.mobile2.tp3.model.ReminderList;
+import ca.csf.mobile2.tp3.service.NotifyService;
 import ca.csf.mobile2.tp3.viewmodel.ReminderListViewModel;
 
 @EActivity(R.layout.activity_reminder_list)
@@ -77,7 +78,7 @@ public class ReminderListActivity extends AppCompatActivity {
         binding = ActivityReminderListBinding.bind(rootView);
         binding.setReminderItemLayoutId(R.layout.item_reminder);
         binding.setReminderItemVariableId(BR.reminder);
-        binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+        binding.setReminderList(new ReminderListViewModel(reminderList));
     }
 
     @Override
@@ -97,11 +98,20 @@ public class ReminderListActivity extends AppCompatActivity {
         if (buttonId == sortByTimeButton.getId()) {
             sortByTimeButton.setSelected(true);
             reminderList = reminderRepository.retrieveAllOrderedByTime();
-            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+            setupNewService();
+            binding.setReminderList(new ReminderListViewModel(reminderList));
         } else if (buttonId == sortByImportanceButton.getId()) {
             sortByImportanceButton.setSelected(true);
             reminderList = reminderRepository.retrieveAllOrderedByImportance();
-            binding.setReminderList(new ReminderListViewModel(reminderList, new Handler(getMainLooper())));
+            setupNewService();
+            binding.setReminderList(new ReminderListViewModel(reminderList));
+        }
+    }
+
+    protected void setupNewService(){
+        ReminderList temporaryList = reminderRepository.retrieveAllOrderedByTime();
+        if(!temporaryList.isEmpty()){
+            NotifyService.setupService(getApplicationContext(), temporaryList);
         }
     }
 }
